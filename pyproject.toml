@@ -1,0 +1,21 @@
+[project]
+name = "qrgenerator"
+version = "0.1.0"
+description = "servicio que crea qr"
+authors = [
+    {name = "{name = \"Luis Zapata\",email = \"luizapata190@gmail.com\"}"}
+]
+license = {text = "mit"}
+readme = "README.md"
+requires-python = "^3.12"
+dependencies = [
+    "fastapi (>=0.121.1,<0.122.0)",
+    "qrcode (>=8.2,<9.0)",
+    "uvicorn (>=0.38.0,<0.39.0)",
+    "pillow (>=12.0.0,<13.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,57 @@
+# --- Entorno Virtual ---
+# Ignora el directorio del entorno virtual creado por Poetry (o venv)
+.venv/
+venv/
+env/
+
+# --- Bytecode y Cache de Python ---
+# Ignora los archivos de bytecode compilados y los directorios de caché
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Archivos de Configuración Local y Secretos ---
+# ¡MUY IMPORTANTE! Ignora el archivo .env para no subir secretos a Git
+.env
+*.env.*
+
+# --- Artefactos de Build/Distribución ---
+# Ignora los directorios y archivos generados al construir el paquete
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- Artefactos de Pruebas ---
+# Ignora los archivos de caché de pytest y los reportes de cobertura
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+
+# --- IDEs y Editores ---
+# Configuraciones específicas de editores comunes
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- Archivos del Sistema Operativo ---
+# Ignora archivos específicos de macOS y Windows
+.DS_Store
+Thumbs.db
+
+# --- Logs y Archivos Temporales ---
+*.log
+*.tmp
+*.swp
+
+# --- Otros (Opcional) ---
+# Si usas mypy, puedes ignorar su caché
+# .mypy_cache/
+
+# Si generas documentación localmente
+# docs/_build/
