@@ -12,8 +12,14 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
+from app.core.security import verify_api_key
+
 @router.post("/", response_model=UserResponse, summary="Crear un nuevo usuario")
-def create_user(user: UserCreate, db: Session = Depends(get_db)):
+def create_user(
+    user: UserCreate, 
+    db: Session = Depends(get_db),
+    api_key: str = Depends(verify_api_key)
+):
     db_user = user_service.get_user_by_cedula(db, cedula=user.cedula)
     if db_user:
         raise HTTPException(status_code=400, detail="La cédula ya está registrada")

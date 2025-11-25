@@ -93,6 +93,13 @@ Para verificar que todo funciona correctamente, ejecuta los tests automatizados:
 poetry run pytest
 ```
 
+## Seguridad y Autenticación
+
+El proyecto cuenta con seguridad mediante **API Key** y **Logging Estructurado**.
+
+- Para detalles de implementación y uso, ver [AUTH.md](AUTH.md).
+- Algunos endpoints (como `POST /users/`) requieren el header `X-API-Key`.
+
 ## Endpoints de la API
 
 ### Códigos QR

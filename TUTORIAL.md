@@ -1,14 +1,3 @@
-# Guía de Aprendizaje: Construyendo una API Profesional con FastAPI
-
-Esta guía documenta el paso a paso de cómo transformamos un script básico en una API profesional, escalable y conectada a base de datos. Úsala como referencia para tus futuros proyectos.
-
-## Fase 1: Estructura y Configuración Profesional
-
-### 1. Gestión de Dependencias (Poetry)
-En lugar de `pip` y `requirements.txt`, usamos **Poetry**.
-- **¿Por qué?**: Maneja versiones, conflictos y entornos virtuales automáticamente.
-- **Comando clave**: `poetry init` (crear proyecto), `poetry add fastapi` (instalar librería).
-
 ### 2. Estructura de Carpetas
 No pongas todo en `main.py`. Divide y vencerás:
 ```text
