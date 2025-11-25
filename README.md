@@ -1,15 +1,17 @@
 # QR Generator API
 
-API REST desarrollada en Python con FastAPI para la generación de códigos QR.
+API REST desarrollada en Python con FastAPI para la generación de códigos QR y gestión de usuarios con PostgreSQL.
 
 ## Características
 
 - Generación de códigos QR en formato imagen (PNG).
 - Generación de códigos QR en formato Base64 (JSON).
 - Descarga directa de archivos QR.
+- Gestión de usuarios con base de datos PostgreSQL.
 - Arquitectura modular y escalable.
 - Configuración centralizada.
 - Soporte para Docker y Docker Compose.
+- Interfaz web de administración de base de datos (pgAdmin).
 
 ## Requisitos Previos
 
@@ -27,42 +29,61 @@ API REST desarrollada en Python con FastAPI para la generación de códigos QR.
     ```
 
 3.  **Configurar variables de entorno**:
-    Crea un archivo `.env` en la raíz del proyecto (puedes copiar `.env.example` si existe, o usar los valores por defecto):
+    Crea un archivo `.env` en la raíz del proyecto:
     ```ini
     PROJECT_NAME="Qr Generator API"
     VERSION="1.0.0"
     DESCRIPTION="API para creación de Códigos QR"
+    POSTGRES_SERVER=localhost
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=postgres
+    POSTGRES_DB=qrdb
+    POSTGRES_PORT=5433
     ```
 
-4.  **Ejecutar el servidor de desarrollo**:
+4.  **Levantar solo la base de datos con Docker**:
+    ```bash
+    docker compose up db -d
+    ```
+
+5.  **Ejecutar el servidor de desarrollo**:
     ```bash
     poetry run uvicorn app.main:app --reload
     ```
 
-5.  **Acceder a la documentación**:
+6.  **Acceder a la documentación**:
     Abre tu navegador en [http://localhost:8000/docs](http://localhost:8000/docs) para ver Swagger UI.
 
-## Despliegue con Docker
+## Despliegue con Docker (Recomendado)
 
-### Opción 1: Docker Compose (Recomendado para desarrollo/local)
+### Levantar todos los servicios
 
-1.  **Construir y levantar el servicio**:
-    ```bash
-    docker compose up --build
-    ```
-    El servicio estará disponible en `http://localhost:8000`.
+```bash
+docker compose up --build
+```
 
-### Opción 2: Docker Manual (Producción)
+Esto iniciará:
+- **API (FastAPI)**: http://localhost:8000
+- **PostgreSQL**: localhost:5433
+- **pgAdmin**: http://localhost:5050
 
-1.  **Construir la imagen**:
-    ```bash
-    docker build -t qr-generator-api .
-    ```
+### Acceder a pgAdmin
 
-2.  **Ejecutar el contenedor**:
-    ```bash
-    docker run -d -p 8000:8000 --name qr-api qr-generator-api
-    ```
+1. Abre http://localhost:5050 en tu navegador
+2. Inicia sesión:
+   - **Email**: `admin@admin.com`
+   - **Password**: `admin`
+
+3. Registra el servidor de PostgreSQL:
+   - Click derecho en "Servers" → "Register" → "Server..."
+   - **General** → Name: `QR Generator DB`
+   - **Connection**:
+     - Host: `db`
+     - Port: `5432`
+     - Database: `qrdb`
+     - Username: `postgres`
+     - Password: `postgres`
+     - ✅ Save password
 
 ## Ejecutar Pruebas
 
@@ -72,17 +93,53 @@ Para verificar que todo funciona correctamente, ejecuta los tests automatizados:
 poetry run pytest
 ```
 
+## Endpoints de la API
+
+### Códigos QR
+
+- `GET /GenerateQr/?data=<texto>` - Genera y devuelve imagen QR
+- `GET /GenerateQrBase64/?data=<texto>` - Devuelve QR en formato Base64 (JSON)
+- `GET /DownloadQr/?data=<texto>&filename=<nombre>` - Descarga QR como archivo PNG
+
+### Usuarios
+
+- `POST /users/` - Crear un nuevo usuario
+- `GET /users/` - Listar todos los usuarios
+- `GET /users/{cedula}` - Obtener usuario por cédula
+
 ## Estructura del Proyecto
 
 ```text
 .
 ├── app/
-│   ├── core/       # Configuración (config.py)
-│   ├── routers/    # Endpoints de la API (qr.py)
-│   ├── services/   # Lógica de negocio (qr_service.py)
+│   ├── core/       # Configuración (config.py, database.py)
+│   ├── models/     # Modelos de base de datos (SQLAlchemy)
+│   ├── schemas/    # Esquemas de validación (Pydantic)
+│   ├── routers/    # Endpoints de la API (qr.py, users.py)
+│   ├── services/   # Lógica de negocio (qr_service.py, user_service.py)
 │   └── main.py     # Punto de entrada de la aplicación
 ├── tests/          # Pruebas automatizadas
 ├── Dockerfile      # Definición de imagen Docker
 ├── docker-compose.yml # Orquestación de contenedores
-└── pyproject.toml  # Dependencias y configuración del proyecto
+├── pyproject.toml  # Dependencias y configuración del proyecto
+├── README.md       # Este archivo
+└── TUTORIAL.md     # Guía de aprendizaje paso a paso
 ```
+
+## Puertos Utilizados
+
+| Servicio | Puerto | Descripción |
+|----------|--------|-------------|
+| API (FastAPI) | 8000 | Documentación en /docs |
+| PostgreSQL | 5433 | Base de datos (puerto externo) |
+| pgAdmin | 5050 | Interfaz web de administración |
+
+## Tecnologías Utilizadas
+
+- **FastAPI**: Framework web moderno y rápido
+- **SQLAlchemy**: ORM para interacción con base de datos
+- **PostgreSQL**: Base de datos relacional
+- **Pydantic**: Validación de datos
+- **Docker**: Contenedorización
+- **Poetry**: Gestión de dependencias
+- **pytest**: Testing automatizado
