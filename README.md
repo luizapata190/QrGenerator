@@ -38,7 +38,7 @@ API REST desarrollada en Python con FastAPI para la generación de códigos QR y
     POSTGRES_USER=postgres
     POSTGRES_PASSWORD=postgres
     POSTGRES_DB=qrdb
-    POSTGRES_PORT=5433
+    POSTGRES_PORT=5432
     ```
 
 4.  **Levantar solo la base de datos con Docker**:
@@ -140,6 +140,42 @@ El proyecto cuenta con seguridad mediante **API Key** y **Logging Estructurado**
 | API (FastAPI) | 8000 | Documentación en /docs |
 | PostgreSQL | 5433 | Base de datos (puerto externo) |
 | pgAdmin | 5050 | Interfaz web de administración |
+
+## Documentación del Proyecto
+
+Este proyecto cuenta con documentación completa para facilitar el desarrollo y mantenimiento:
+
+### 📚 Guías de Desarrollo
+- **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** - Guía paso a paso para crear la aplicación desde cero
+  - Configuración inicial del proyecto
+  - Implementación de cada fase
+  - Mejores prácticas y comandos de referencia
+  - Ideal para replicar el proyecto o crear aplicaciones similares
+
+### 🏗️ Arquitectura y Diseño
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Diagramas y explicación de la arquitectura
+  - Flujo de datos de la aplicación
+  - Responsabilidades por capa
+  - Ejemplos de secuencia
+
+- **[DESIGN_DECISIONS.md](DESIGN_DECISIONS.md)** - Decisiones técnicas y lecciones aprendidas
+  - Por qué se eligió cada tecnología
+  - Problemas encontrados y soluciones
+  - Decisiones de seguridad y despliegue
+
+### 🔐 Seguridad
+- **[AUTH.md](AUTH.md)** - Guía de autenticación y seguridad
+  - Implementación de API Key
+  - Generación de claves seguras
+  - Ejemplos de uso
+
+- **[SECURITY.md](SECURITY.md)** - Políticas de seguridad del proyecto
+
+### 📖 Tutoriales
+- **[TUTORIAL.md](TUTORIAL.md)** - Guía de aprendizaje conceptual
+  - Explicación de conceptos clave
+  - Cómo agregar nuevos módulos
+  - Comandos útiles
 
 ## Tecnologías Utilizadas
 
